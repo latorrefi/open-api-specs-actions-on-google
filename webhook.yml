@@ -1,0 +1,74 @@
+swagger: "2.0"
+info:
+  description: "This is an sample webhook for Actions Google"
+  version: "0.0.1"
+  title: "Swagger Actions Google"
+  termsOfService: "https://developers.google.com/actions/reference/rest/conversation-webhook"
+  contact:
+    email: "latorrefi@gmail.com"
+host: "example.com"
+tags:
+- name: "Conversation"
+  description: "Everything about conversation"
+schemes:
+- "https"
+paths:
+  /fulfillment:
+    post:
+      tags:
+      - "Conversation"
+      summary: "Handle a new intent"
+      description: ""
+      operationId: "fulfillment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "AppRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/AppRequest"
+      responses:
+        200:
+          description: Timeline returned
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AppResponse'
+definitions:
+  AppRequest:
+    type: "object"
+    properties:
+      user:
+        $ref: "#/definitions/User"
+      device:
+        $ref: "#/definitions/Device"
+      surface:
+        $ref: "#/definitions/Surface"
+      conversation:
+        $ref: "#/definitions/Conversation"
+      inputs:
+        type: array
+        items:
+          $ref: "#/definitions/Input"
+      isInSandbox:
+        type: "boolean"
+        default: true
+  AppResponse:
+    type: "object"
+  User:
+    type: "object"
+    properties:
+      userId:
+        type: string
+  Device:
+    type: "object"
+  Surface:
+    type: "object"
+  Conversation:
+    type: "object"
+  Input:
+    type: "object"
