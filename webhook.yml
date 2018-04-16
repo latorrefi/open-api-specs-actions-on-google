@@ -64,6 +64,24 @@ definitions:
     properties:
       userId:
         type: string
+      profile:
+        $ref: '#/definitions/UserProfile'
+      accessToken:
+        type: string
+      permissions:
+        type: array
+        items:
+          $ref: '#/definitions/Permission'
+      locale:
+        type: string
+      lastSeen:
+        type: string
+      userStorage:
+        type: string
+      packageEntitlements:
+        type: array
+        items:
+          $ref: '#/definitions/PackageEntitlement'
   Device:
     type: "object"
   Surface:
@@ -72,3 +90,52 @@ definitions:
     type: "object"
   Input:
     type: "object"
+  UserProfile:
+    type: "object"
+    properties:
+      displayName:
+        type: string
+      givenName:
+        type: string
+      familyName:
+        type: string
+  Permission:
+    type: string
+    enum:
+      - UNSPECIFIED_PERMISSION
+      - NAME
+      - DEVICE_PRECISE_LOCATION
+      - DEVICE_COARSE_LOCATION
+      - UPDATE
+  PackageEntitlement:
+    type: "object"
+    properties:
+      packageName:
+        type: string
+      entitlements:
+        type: array
+        items:
+          $ref: '#/definitions/Entitlement'
+  Entitlement:
+    type: "object"
+    properties:
+      sku:
+        type: string
+      skuType:
+        type: string
+        enum:
+          - TYPE_UNSPECIFIED
+          - IN_APP
+          - SUBSCRIPTION
+          - APP
+      inAppDetails:
+        $ref: '#/definitions/SignedData'
+  SignedData:
+    type: "object"
+    properties:
+      inAppPurchaseData:
+        type: "object"
+        additionalProperties:
+          type: "object"
+      inAppDataSignature:
+        type: string
